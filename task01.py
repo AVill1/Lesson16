@@ -1,7 +1,4 @@
-DIGITS = "0123456789"
-LOWER_CASE = "qwertyuiopasdfghjklzxcvbnm"
-UPPER_CASE ="QWERTYUIOPASDFGHJKLZXCVBNM"
-
+import string
 def check_password(password):
 
     if (not isinstance(password, str)
@@ -9,46 +6,55 @@ def check_password(password):
         return -1
 
     password = password.strip()
+    digit = string.digits
+    lower = string.ascii_lowercase
+    upper = string.ascii_uppercase
 
     if len(password)<8:
         return"too weak"
 
-    is_digit = True
-    for ch in password:
-        if ch not in DIGITS:
-            is_digit=False
-            break
-
-    is_lower = True
-    for ch in password:
-        if ch not in LOWER_CASE:
-            is_lower = False
-            break
-
-    is_upper = True
-    for ch in password:
-        if ch not in UPPER_CASE:
-            is_upper = False
-            break
-    if is_upper or is_lower or is_digit:
+    #is_digit = True
+    if  (all(ch  in digit for ch in password)
+        or all([ch  in lower for ch in password])
+        or all([ch  in upper for ch in password])):
+    # for ch in password:
+    #     if ch not in DIGITS:
+    #         is_digit = False
+    #         break
+    #
+    # is_lower = True
+    # for ch in password:
+    #     if ch not in LOWER_CASE:
+    #         is_lower = False
+    #         break
+    #
+    # is_upper = True
+    # for ch in password:
+    #     if ch not in UPPER_CASE:
+    #         is_upper = False
+    #         break
+    # if is_upper or is_lower or is_digit:
         return "weak"
 
-    is_digit = False
-    for ch in password:
-       if ch in DIGITS:
-            is_digit=True
-            break
-    is_lower = False
-    for ch in password:
-       if ch in LOWER_CASE:
-            is_lower = True
-            break
-    is_upper = False
-    for ch in password:
-       if ch in UPPER_CASE:
-           is_upper = True
-           break
-    if is_upper and is_lower and is_digit:
+    # is_digit = False
+    # for ch in password:
+    #    if ch in DIGITS:
+    #         is_digit=True
+    #         break
+    # is_lower = False
+    # for ch in password:
+    #    if ch in LOWER_CASE:
+    #         is_lower = True
+    #         break
+    # is_upper = False
+    # for ch in password:
+    #    if ch in UPPER_CASE:
+    #        is_upper = True
+    #        break
+    # if is_upper and is_lower and is_digit:
+    if (any(ch in digit for ch in password)
+        and any([ch in lower for ch in password])
+        and any([ch in upper for ch in password])):
         return "very strong"
 
     return "strong"
